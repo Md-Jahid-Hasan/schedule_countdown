@@ -48,38 +48,52 @@ function App() {
             console.log(schedule.scheduleTask.length)
         }
     }
+    
 
     return (
-        <>
-            <div>
-                {minute} : {second}
-            </div>
-            <div>
-                {schedule.scheduleTask.length ? <p>Upcoming Task</p>:""}
-                {schedule.scheduleTask.map(task => {
-                    const {id, title, time} = work[task];
-                    return (
+        <div className='container '>
+            <div className='row col-md-12 '>
+                <div className='d-flex justify-content-center mb-3'>
+                    <span className="badge bg-success p-3 m-1 text-center"><p className='font-weight-bold text-center'> {minute}</p></span>
+                    <span className="badge bg-success p-3 m-1"><p className='font-weight-bold'> {second}</p></span>
+                </div>
+                <div className='d-flex flex-column justify-content-center mb-3'>
+                    <div className='row justify-content-center'>
+                   
+                        <div class="card" style={{maxWidth: '18rem'}}>
+                        <div class="card-body text-center">
+                        {schedule.scheduleTask.length ?"Upcoming Task":"No Shcedule Task"}
+                        </div>
+                      </div>
+                        
+                    </div>
+                    <div className='row d-flex felx-row justify-content-center'>
+                    {schedule.scheduleTask.map(task => {
+                        const {id, title, time} = work[task];
+                        return (
 
-                        <div key={id}>
-                            <p>{title}</p>
-                            <p>{time}</p>
-                        </div>
-                    )
-                })}
+                            <div key={id} className='card text-white bg-secondary p-3 m-3' style={{maxWidth: '15rem'}}>
+                                <div className='card-header'>{title}</div>
+                                <div className='card-body'>{time}</div>
+                            </div>
+                        )
+                    })}
+                    </div>
+                </div>
+                <div className='row d-flex justify-content-center'>
+                    {work.map(value => {
+                        const {id, title, time} = value;
+                        return (
+                            <div key={id}  className='card text-white bg-secondary p-3 m-3' style={{maxWidth: '15rem'}}>
+                                <div className='card-header'> {title}</div>
+                                <div className='card-body'>{time} min</div>
+                                <button className='btn btn-info m-3 mx-3' onClick={() => handleButton(id)}>Set time</button>
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
-            <div>
-                {work.map(value => {
-                    const {id, title, time} = value;
-                    return (
-                        <div key={id}>
-                            <p>{title}</p>
-                            <p>{time} min</p>
-                            <button onClick={() => handleButton(id)}>Set time</button>
-                        </div>
-                    )
-                })}
-            </div>
-        </>
+        </div>
     );
 }
 
